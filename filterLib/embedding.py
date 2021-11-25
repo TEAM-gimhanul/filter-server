@@ -57,4 +57,4 @@ def padding_x(x, length=256, pad=None):
 
 
 # vecdict = os.path.join('models/char2vec.dic')  # 각 글자에 대응하는 vector가 담긴 dictionary
-vecdict = joblib.load('/Users/krung2/Documents/Github/filter-server/filterLib/models/char2vec.dic')  # 각 글자에 대응하는 vector가 담긴 dictionary
+vecdict = joblib.load('filterLib/models/char2vec.dic')  # 각 글자에 대응하는 vector가 담긴 dictionary

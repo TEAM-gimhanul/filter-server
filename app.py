@@ -1,4 +1,4 @@
-from flask import Flask, request
+from flask import Flask, request, jsonify
 
 app = Flask(__name__)
 
@@ -12,16 +12,27 @@ def hello_world():
 
 @app.route('/text', methods=["POST"])
 def check_text():
-
     curse = CurseDetector()
     body = request.json
     text = body['text']
 
-    if curse.predict(text)[1] > 0.9:
-        return 'true';
+    result = curse.predict(text)
+    returnArr = []
+    cnt = 0
 
-    return 'false'
+    for i in result:
+        if i[1] > 0.9:
+            returnArr.append('true')
+            cnt += 1
+            continue
+
+        returnArr.append('false')
+        cnt += 1
+
+    return jsonify(
+        data=returnArr
+    )
 
 
 if __name__ == '__main__':
-    app.run(host='0.0.0.0', port='5001', debug=True)
+    app.run(host='0.0.0.0', port='8085', debug=True)
