@@ -8,7 +8,7 @@ from .embedding import embedding, padding
 
 
 class CurseDetector():
-    def __init__(self, path='/Users/krung2/Documents/Github/filter-server/filterLib/models/weights.h5'):
+    def __init__(self, path='models/weights.h5'):
         # 모델 가져오기
         self.model = build_model()
         self.load_weights(path)
