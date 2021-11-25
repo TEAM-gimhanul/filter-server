@@ -1,13 +1,14 @@
 # -*- coding: utf-8 -*-
 import pickle
 
-from model import *
-import text_preprocessing as pre
-import embedding as emb
+from .model import *
+# import text_preprocessing as pre
+from .text_preprocessing import preprocess
+from .embedding import embedding, padding
 
 
 class CurseDetector():
-    def __init__(self, path='models/weights.h5'):
+    def __init__(self, path='/Users/krung2/Documents/Github/filter-server/filterLib/models/weights.h5'):
         # 모델 가져오기
         self.model = build_model()
         self.load_weights(path)
@@ -18,12 +19,14 @@ class CurseDetector():
             self.model.load_weights(path)
         except OSError:
             raise Exception("학습된 모델을 불러오는 데 실패했습니다. 학습된 모델(weights.h5)을 models 폴더에 옮겨 주세요.")
+            # 읽는걸 못하네 문맹새끼
+            # 개 억지로 읽어왔네
 
     def embedding(self, texts):
         # 전처리, 임베딩 수행
-        texts = pre.preprocess(texts)
-        embed = emb.embedding(texts)
-        embed = emb.padding(embed)
+        texts = preprocess(texts)
+        embed = embedding(texts)
+        embed = padding(embed)
         return embed
 
     def predict(self, texts):
